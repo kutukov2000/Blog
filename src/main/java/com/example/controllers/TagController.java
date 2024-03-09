@@ -31,8 +31,8 @@ public class TagController {
     @GetMapping
     ResponseEntity<List<TagItemDTO>> getAll() {
         List<TagEntity> list = tagsRepository.findAll();
-        List<TagItemDTO> tagImetDTOList = tagMapper.tagsToTagItemDTOs(list);
-        return new ResponseEntity<>(tagImetDTOList, HttpStatus.OK);
+        List<TagItemDTO> tagItemDTOList = tagMapper.tagsToTagItemDTOs(list);
+        return new ResponseEntity<>(tagItemDTOList, HttpStatus.OK);
     }
 
     @PostMapping
