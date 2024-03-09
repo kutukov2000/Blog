@@ -46,6 +46,7 @@ public class TagController {
             tagsRepository.save(tag);
             return new ResponseEntity<>(tagMapper.tagItemDTO(tag), HttpStatus.CREATED);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

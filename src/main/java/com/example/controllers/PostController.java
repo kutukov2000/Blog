@@ -51,6 +51,7 @@ public class PostController {
 
             return new ResponseEntity<>(postMapper.postItemDTO(postEntity), HttpStatus.CREATED);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -68,7 +69,8 @@ public class PostController {
             post.setPostedOn(existingPost.getPostedOn());
             postsRepository.save(post);
             return new ResponseEntity<>(postMapper.postItemDTO(post), HttpStatus.OK);
-        } catch (Exception ex) {
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

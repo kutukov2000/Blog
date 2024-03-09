@@ -40,11 +40,14 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<CategoryItemDTO> create(CategoryCreateDTO categoryCreateDTO) {
-        CategoryEntity categoryEntity = categoryMapper.categoryCreateDTO(categoryCreateDTO);
-
-        categoriesRepository.save(categoryEntity);
-
-        return new ResponseEntity<>(categoryMapper.categoryItemDTO(categoryEntity), HttpStatus.OK);
+        try {
+            CategoryEntity categoryEntity = categoryMapper.categoryCreateDTO(categoryCreateDTO);
+            categoriesRepository.save(categoryEntity);
+            return new ResponseEntity<>(categoryMapper.categoryItemDTO(categoryEntity), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping()
@@ -59,7 +62,8 @@ public class CategoryController {
             category = categoryMapper.categoryEditDTO(updatedCategoryDTO);
             categoriesRepository.save(category);
             return new ResponseEntity<>(categoryMapper.categoryItemDTO(category), HttpStatus.OK);
-        } catch (Exception ex) {
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -74,7 +78,8 @@ public class CategoryController {
         try {
             categoriesRepository.delete(category);
             return new ResponseEntity<HttpStatus>(HttpStatus.OK);
-        } catch (Exception ex) {
+        } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<HttpStatus>(HttpStatus.BAD_REQUEST);
         }
     }
