@@ -11,7 +11,7 @@ public class PostItemDTO {
     private String shortDescription;
     private String description;
     private String meta;
-    private String urlslug;
+    private String urlSlug;
     private boolean published;
     private LocalDateTime postedOn;
     private LocalDateTime modified;

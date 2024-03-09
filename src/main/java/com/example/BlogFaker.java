@@ -36,7 +36,7 @@ public class BlogFaker {
         entity.setPublished(false);
         entity.setMeta(faker.harryPotter().house());
         entity.setShortDescription(faker.harryPotter().character());
-        entity.setUrlslug(faker.harryPotter().house());
+        entity.setUrlSlug(faker.harryPotter().house());
         entity.setPostedOn(LocalDateTime.now());
         entity.setModified(LocalDateTime.now());
 

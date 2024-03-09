@@ -30,7 +30,7 @@ public class PostEntity {
     private String meta;
 
     @Column(length = 200, nullable = false)
-    private String urlslug;
+    private String urlSlug;
 
     @Column(nullable = false)
     private boolean published;
