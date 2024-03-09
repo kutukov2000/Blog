@@ -1,7 +1,6 @@
 package com.example.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +31,7 @@ public class TagController {
     @GetMapping
     ResponseEntity<List<TagItemDTO>> getAll() {
         List<TagEntity> list = tagsRepository.findAll();
-        List<TagItemDTO> tagImetDTOList = list.stream()
-                .map(tag -> tagMapper.tagItemDTO(tag))
-                .collect(Collectors.toList());
-
+        List<TagItemDTO> tagImetDTOList = tagMapper.tagsToTagItemDTOs(list);
         return new ResponseEntity<>(tagImetDTOList, HttpStatus.OK);
     }
 

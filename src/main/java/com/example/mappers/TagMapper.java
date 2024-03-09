@@ -1,5 +1,7 @@
 package com.example.mappers;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,4 +19,6 @@ public interface TagMapper {
 
     @Mapping(target = "urlSlug", expression = "java(com.example.services.UrlSlugGenerator.generateUrlSlug(tagEditDTO.getName()))")
     TagEntity tagEditDTOToEntity(TagEditDTO tagEditDTO);
+
+    List<TagItemDTO> tagsToTagItemDTOs(List<TagEntity> tags);
 }

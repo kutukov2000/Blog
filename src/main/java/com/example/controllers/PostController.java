@@ -1,7 +1,6 @@
 package com.example.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +31,7 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<PostItemDTO>> getAll() {
         List<PostEntity> list = postsRepository.findAll();
-        List<PostItemDTO> postDTOList = list.stream()
-                .map(postEntity -> postMapper.postItemDTO(postEntity))
-                .collect(Collectors.toList());
-
+        List<PostItemDTO> postDTOList = postMapper.postsToPostItemDTOs(list);
         return new ResponseEntity<>(postDTOList, HttpStatus.OK);
     }
 

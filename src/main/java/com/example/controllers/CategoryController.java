@@ -1,7 +1,6 @@
 package com.example.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +31,7 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<CategoryItemDTO>> getAll() {
         List<CategoryEntity> list = categoriesRepository.findAll();
-        List<CategoryItemDTO> categoryDTOList = list.stream()
-                .map(categoryEntity -> categoryMapper.categoryItemDTO(categoryEntity))
-                .collect(Collectors.toList());
+        List<CategoryItemDTO> categoryDTOList = categoryMapper.categoriesToCategoryItemDTOs(list);
         return new ResponseEntity<>(categoryDTOList, HttpStatus.OK);
     }
 

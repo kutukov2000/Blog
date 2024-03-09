@@ -1,5 +1,7 @@
 package com.example.mappers;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,4 +19,6 @@ public interface CategoryMapper {
 
     @Mapping(target = "urlSlug", expression = "java(com.example.services.UrlSlugGenerator.generateUrlSlug(categoryEditDTO.getName()))")
     CategoryEntity categoryEditDTO(CategoryEditDTO categoryEditDTO);
+
+    List<CategoryItemDTO> categoriesToCategoryItemDTOs(List<CategoryEntity> categories);
 }

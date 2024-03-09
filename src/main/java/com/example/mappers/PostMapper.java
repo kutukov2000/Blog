@@ -1,5 +1,7 @@
 package com.example.mappers;
 
+import java.util.List;
+
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,4 +27,7 @@ public interface PostMapper {
     @Mapping(target = "postedOn", expression = "java(existedPost.getPostedOn())")
     @Mapping(target = "modified", expression = "java(java.time.LocalDateTime.now())")
     PostEntity postEditDTOToEntity(PostEditDTO postEditDTO, @Context PostEntity existedPost);
+
+    @Mapping(source = "post.category.id", target = "categoryId")
+    List<PostItemDTO> postsToPostItemDTOs(List<PostEntity> posts);
 }
