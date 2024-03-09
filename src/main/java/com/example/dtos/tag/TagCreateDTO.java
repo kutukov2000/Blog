@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class TagCreateDTO {
     private String name;
-    private String urlSlug;
     private String description;
 }

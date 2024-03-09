@@ -8,7 +8,6 @@ public class PostCreateDTO {
     private String shortDescription;
     private String description;
     private String meta;
-    private String urlslug;
     private boolean published;
     private int categoryId;
 }

@@ -14,8 +14,10 @@ public interface PostMapper {
     PostItemDTO postItemDTO(PostEntity post);
 
     @Mapping(source = "categoryId", target = "category.id")
+    @Mapping(target = "urlslug", expression = "java(com.example.services.UrlSlugGenerator.generateUrlSlug(postCreateDTO.getTitle()))")
     PostEntity postCreateDTOToEntity(PostCreateDTO postCreateDTO);
 
     @Mapping(source = "categoryId", target = "category.id")
+    @Mapping(target = "urlslug", expression = "java(com.example.services.UrlSlugGenerator.generateUrlSlug(postEditDTO.getTitle()))")
     PostEntity postEditDTOToEntity(PostEditDTO postEditDTO);
 }
