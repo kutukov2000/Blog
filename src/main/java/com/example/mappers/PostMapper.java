@@ -1,5 +1,6 @@
 package com.example.mappers;
 
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -15,9 +16,13 @@ public interface PostMapper {
 
     @Mapping(source = "categoryId", target = "category.id")
     @Mapping(target = "urlSlug", expression = "java(com.example.services.UrlSlugGenerator.generateUrlSlug(postCreateDTO.getTitle()))")
+    @Mapping(target = "postedOn", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "modified", expression = "java(java.time.LocalDateTime.now())")
     PostEntity postCreateDTOToEntity(PostCreateDTO postCreateDTO);
 
     @Mapping(source = "categoryId", target = "category.id")
     @Mapping(target = "urlSlug", expression = "java(com.example.services.UrlSlugGenerator.generateUrlSlug(postEditDTO.getTitle()))")
-    PostEntity postEditDTOToEntity(PostEditDTO postEditDTO);
+    @Mapping(target = "postedOn", expression = "java(existedPost.getPostedOn())")
+    @Mapping(target = "modified", expression = "java(java.time.LocalDateTime.now())")
+    PostEntity postEditDTOToEntity(PostEditDTO postEditDTO, @Context PostEntity existedPost);
 }

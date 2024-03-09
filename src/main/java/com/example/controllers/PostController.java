@@ -1,6 +1,5 @@
 package com.example.controllers;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,11 +43,7 @@ public class PostController {
     public ResponseEntity<PostItemDTO> createPost(PostCreateDTO postCreateDTO) {
         try {
             PostEntity postEntity = postMapper.postCreateDTOToEntity(postCreateDTO);
-            postEntity.setPostedOn(LocalDateTime.now());
-            postEntity.setModified(LocalDateTime.now());
-
             postsRepository.save(postEntity);
-
             return new ResponseEntity<>(postMapper.postItemDTO(postEntity), HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,11 +59,9 @@ public class PostController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         try {
-            PostEntity post = postMapper.postEditDTOToEntity(postEditDTO);
-            post.setModified(LocalDateTime.now());
-            post.setPostedOn(existingPost.getPostedOn());
-            postsRepository.save(post);
-            return new ResponseEntity<>(postMapper.postItemDTO(post), HttpStatus.OK);
+            existingPost = postMapper.postEditDTOToEntity(postEditDTO, existingPost);
+            postsRepository.save(existingPost);
+            return new ResponseEntity<>(postMapper.postItemDTO(existingPost), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
