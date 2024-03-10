@@ -22,5 +22,6 @@ public class RoleEntity {
     @Column(length = 255, nullable = false)
     private String name;
     @OneToMany(mappedBy = "role")
+    @Builder.Default
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 }
