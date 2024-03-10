@@ -53,8 +53,9 @@ public class JwtService {
 
     // з токена можна витягнути Id юзера
     public String getUserId(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret) // перевіряється чи цей токен видавався нашим серваком
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSignInKey()) // перевіряється чи цей токен видавався нашим серваком
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 
@@ -63,8 +64,9 @@ public class JwtService {
 
     // з токена можна витягнути username юзера
     public String getUsername(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 
@@ -73,18 +75,19 @@ public class JwtService {
 
     // метод повертає дату до якої живе токен
     public Date getExpirationDate(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 
         return claims.getExpiration();
     }
 
-    // перевфряє чи наш токен валідний і чи видавався нашим сервером
+    // перевіряє чи наш токен валідний і чи видавався нашим сервером
     public boolean validate(String token) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token);
             return true;
         } catch (SignatureException ex) {
             System.out.println("Invalid JWT signature - " + ex.getMessage());
