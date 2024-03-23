@@ -45,7 +45,7 @@ public class PostEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CategoryEntity category;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<PostTagEntity> postTags;
 }
 

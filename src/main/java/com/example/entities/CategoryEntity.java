@@ -22,6 +22,6 @@ public class CategoryEntity {
     @Column(length = 200)
     private String description;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<PostEntity> posts;
 }

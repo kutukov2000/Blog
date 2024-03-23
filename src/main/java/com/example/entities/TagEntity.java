@@ -22,6 +22,6 @@ public class TagEntity {
     @Column(length = 200)
     private String description;
 
-    @OneToMany(mappedBy = "tag")
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.REMOVE)
     private List<PostTagEntity> postTags;
 }
