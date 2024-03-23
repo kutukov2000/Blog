@@ -35,7 +35,19 @@ public class PostController {
         return new ResponseEntity<>(postDTOList, HttpStatus.OK);
     }
 
-    @GetMapping("{categoryId}")
+    @GetMapping("{id}")
+    public ResponseEntity<PostItemDTO> getById(@PathVariable int id) {
+        PostEntity post = postsRepository.findById(id).orElse(null);
+
+        if (post == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        PostItemDTO postItemDTO = postMapper.postItemDTO(post);
+        return new ResponseEntity<>(postItemDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("byCategoryId/{categoryId}")
     public ResponseEntity<List<PostItemDTO>> getByCategoryId(@PathVariable int categoryId) {
         List<PostEntity> list = postsRepository.findByCategoryId(categoryId);
         List<PostItemDTO> postDTOList = postMapper.postsToPostItemDTOs(list);
