@@ -35,6 +35,13 @@ public class PostController {
         return new ResponseEntity<>(postDTOList, HttpStatus.OK);
     }
 
+    @GetMapping("{categoryId}")
+    public ResponseEntity<List<PostItemDTO>> getByCategoryId(@PathVariable int categoryId) {
+        List<PostEntity> list = postsRepository.findByCategoryId(categoryId);
+        List<PostItemDTO> postDTOList = postMapper.postsToPostItemDTOs(list);
+        return new ResponseEntity<>(postDTOList, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<PostItemDTO> createPost(PostCreateDTO postCreateDTO) {
         try {
