@@ -49,7 +49,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryItemDTO> create(CategoryCreateDTO categoryCreateDTO) {
+    public ResponseEntity<CategoryItemDTO> create(@RequestBody CategoryCreateDTO categoryCreateDTO) {
         try {
             CategoryEntity categoryEntity = categoryMapper.categoryCreateDTO(categoryCreateDTO);
             categoriesRepository.save(categoryEntity);
