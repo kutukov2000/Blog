@@ -10,6 +10,7 @@ import org.mapstruct.ReportingPolicy;
 import com.example.dtos.post.PostCreateDTO;
 import com.example.dtos.post.PostEditDTO;
 import com.example.dtos.post.PostItemDTO;
+import com.example.dtos.post.PostWithTagsDTO;
 import com.example.entities.PostEntity;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
@@ -31,4 +32,8 @@ public interface PostMapper {
 
     @Mapping(source = "post.category.id", target = "categoryId")
     List<PostItemDTO> postsToPostItemDTOs(List<PostEntity> posts);
+
+    @Mapping(source = "post.category.id", target = "categoryId")
+    @Mapping(target = "tags", expression = "java(post.getPostTags().stream().map(postTag -> postTag.getTag().getName()).collect(java.util.stream.Collectors.toList()))")
+    PostWithTagsDTO postEntityToPostWithTagsDTO(PostEntity post);
 }

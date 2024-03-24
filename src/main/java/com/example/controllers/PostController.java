@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.dtos.post.PostCreateDTO;
 import com.example.dtos.post.PostEditDTO;
 import com.example.dtos.post.PostItemDTO;
+import com.example.dtos.post.PostWithTagsDTO;
 import com.example.entities.PostEntity;
 import com.example.mappers.PostMapper;
 import com.example.repositories.PostsRepository;
@@ -37,15 +38,16 @@ public class PostController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PostItemDTO> getById(@PathVariable int id) {
+    public ResponseEntity<PostWithTagsDTO> getById(@PathVariable int id) {
         PostEntity post = postsRepository.findById(id).orElse(null);
 
         if (post == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        PostItemDTO postItemDTO = postMapper.postItemDTO(post);
-        return new ResponseEntity<>(postItemDTO, HttpStatus.OK);
+        PostWithTagsDTO postWithTagsDTO = postMapper.postEntityToPostWithTagsDTO(post);
+
+        return new ResponseEntity<>(postWithTagsDTO, HttpStatus.OK);
     }
 
     @GetMapping("byCategoryId/{categoryId}")
